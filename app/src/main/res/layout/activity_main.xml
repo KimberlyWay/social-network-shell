@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ViewFlipper android:id="@+id/pages"
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_weight="1">
+        <include layout="@layout/page_feed" />
+        <include layout="@layout/page_friends" />
+        <include layout="@layout/page_messages" />
+        <include layout="@layout/page_profile" />
+    </ViewFlipper>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:background="#FFFFFF"
+        android:paddingTop="4dp" android:paddingBottom="4dp">
+        <Button android:id="@+id/feedButton" style="@style/NavButton" android:text="@string/feed" />
+        <Button android:id="@+id/friendsButton" style="@style/NavButton" android:text="@string/friends" />
+        <Button android:id="@+id/messagesButton" style="@style/NavButton" android:text="@string/messages" />
+        <Button android:id="@+id/profileButton" style="@style/NavButton" android:text="@string/profile" />
+    </LinearLayout>
+</LinearLayout>

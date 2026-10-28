@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="12dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical">
+        <Button android:id="@+id/backButton" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="@string/back" />
+        <TextView android:id="@+id/chatTitle" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:paddingStart="8dp" android:textSize="20sp"
+            android:textStyle="bold" android:textColor="#253441" />
+    </LinearLayout>
+    <TextView android:id="@+id/chatHint" style="@style/HintText" android:paddingTop="8dp" />
+    <ScrollView android:id="@+id/messagesScroll" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1" android:fillViewport="true">
+        <LinearLayout android:id="@+id/messagesContainer" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:paddingTop="8dp" android:paddingBottom="8dp" />
+    </ScrollView>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="bottom">
+        <EditText android:id="@+id/messageInput" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:hint="@string/message_hint" android:inputType="textMultiLine|textCapSentences"
+            android:minHeight="48dp" android:maxLines="4" android:maxLength="2000" />
+        <Button android:id="@+id/sendButton" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:minHeight="48dp"
+            android:text="@string/send" android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

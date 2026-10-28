@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:padding="16dp">
+    <TextView style="@style/SectionTitle" android:text="@string/friends_title" />
+    <TextView style="@style/HintText" android:text="@string/friends_hint" />
+    <EditText android:id="@+id/friendSearch" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:minHeight="48dp"
+        android:hint="@string/search_hint" android:inputType="text"
+        android:singleLine="true" android:imeOptions="actionDone" />
+    <TextView android:id="@+id/friendsCount" style="@style/HintText" android:paddingTop="8dp" />
+    <ScrollView android:id="@+id/friendsScroll" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:id="@+id/friendsContainer" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" />
+    </ScrollView>
+</LinearLayout>
