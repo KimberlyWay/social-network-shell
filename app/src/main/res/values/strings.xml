@@ -5,7 +5,6 @@
     <string name="messages">Сообщения</string>
     <string name="profile">Профиль</string>
     <string name="feed_title">Новости друзей</string>
-    <string name="feed_hint">Учебная лента с локальными публикациями и картинками.</string>
     <string name="friends_title">Люди и друзья</string>
     <string name="friends_hint">Найдите человека и добавьте его в свой список друзей.</string>
     <string name="search_hint">Имя или город</string>
