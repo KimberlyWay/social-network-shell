@@ -20,7 +20,6 @@
     <string name="saved_hint">Личные заметки</string>
     <string name="no_messages">Нет сообщений</string>
     <string name="you_message">Вы: %1$s</string>
-    <string name="local_chat_hint">Локальный чат: сообщения никому не отправляются. Ответов от реального собеседника нет.</string>
     <string name="saved_chat_hint">Личные заметки: сообщения сохраняются только на этом устройстве.</string>
     <string name="empty_chat">Напишите первое сообщение.</string>
     <string name="message_hint">Сообщение</string>
@@ -32,6 +31,12 @@
     <string name="profile_hint">Измените данные и нажмите «Сохранить». Профиль хранится на этом устройстве.</string>
     <string name="save">Сохранить</string>
     <string name="profile_saved">Профиль сохранён</string>
+    <string name="profile_photo">Фото профиля</string>
+    <string name="choose_photo">Выбрать фото</string>
+    <string name="photo_loading">Загрузка…</string>
+    <string name="photo_saved">Фото профиля сохранено</string>
+    <string name="photo_error">Не удалось открыть фото. Выберите другое изображение размером до 20 МБ.</string>
+    <string name="picker_unavailable">На устройстве нет приложения для выбора изображений</string>
     <string name="name_required">Введите имя</string>
     <string name="friend_status">В друзьях</string>
     <string name="picture_description">Иллюстрация к публикации: %1$s</string>

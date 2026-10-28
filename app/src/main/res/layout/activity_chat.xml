@@ -6,6 +6,8 @@
         android:orientation="horizontal" android:gravity="center_vertical">
         <Button android:id="@+id/backButton" android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:text="@string/back" />
+        <LinearLayout android:id="@+id/chatAvatar" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginStart="8dp" />
         <TextView android:id="@+id/chatTitle" android:layout_width="0dp"
             android:layout_height="wrap_content" android:layout_weight="1"
             android:paddingStart="8dp" android:textSize="20sp"

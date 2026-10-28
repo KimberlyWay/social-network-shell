@@ -1,6 +1,6 @@
 package com.example.socialnetwork
 
-data class Person(val id: String, val name: String, val city: String)
+data class Person(val id: String, val name: String, val city: String, val avatar: Int = 0)
 data class Post(val author: String, val time: String, val text: String, val picture: Int)
 data class Profile(val name: String, val city: String, val about: String)
 data class Message(val text: String, val outgoing: Boolean, val timestamp: Long)
@@ -9,8 +9,8 @@ object DemoData {
     const val SAVED_CHAT = "saved"
 
     val people = listOf(
-        Person("anna", "Анна Смирнова", "Самара"),
-        Person("maxim", "Максим Орлов", "Казань"),
+        Person("anna", "Анна Смирнова", "Самара", R.drawable.avatar_anna),
+        Person("maxim", "Максим Орлов", "Казань", R.drawable.avatar_maxim),
         Person("olga", "Ольга Иванова", "Самара"),
         Person("denis", "Денис Волков", "Москва"),
         Person("maria", "Мария Соколова", "Казань"),

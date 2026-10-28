@@ -30,10 +30,14 @@ class ChatActivity : Activity() {
         setContentView(R.layout.activity_chat)
         storage = LocalStorage(this)
         val isSaved = chatId == DemoData.SAVED_CHAT
+        if (!isSaved) findViewById<LinearLayout>(R.id.chatAvatar)
+            .addView(AvatarViews.person(this, DemoData.person(chatId)!!))
         findViewById<TextView>(R.id.chatTitle).text =
             if (isSaved) getString(R.string.saved_messages) else DemoData.person(chatId)!!.name
-        findViewById<TextView>(R.id.chatHint).setText(
-            if (isSaved) R.string.saved_chat_hint else R.string.local_chat_hint)
+        findViewById<TextView>(R.id.chatHint).apply {
+            visibility = if (isSaved) View.VISIBLE else View.GONE
+            if (isSaved) setText(R.string.saved_chat_hint)
+        }
         findViewById<Button>(R.id.backButton).setOnClickListener { finish() }
         findViewById<Button>(R.id.sendButton).setOnClickListener {
             val input = findViewById<EditText>(R.id.messageInput)

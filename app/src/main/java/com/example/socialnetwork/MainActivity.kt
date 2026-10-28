@@ -2,6 +2,7 @@ package com.example.socialnetwork
 
 import android.app.Activity
 import android.content.Intent
+import android.content.ActivityNotFoundException
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -42,6 +43,7 @@ class MainActivity : Activity() {
             override fun afterTextChanged(s: Editable?) {}
         })
         findViewById<Button>(R.id.saveProfile).setOnClickListener { saveProfile() }
+        findViewById<Button>(R.id.chooseAvatar).setOnClickListener { chooseAvatar() }
         showPage(savedInstanceState?.getInt("page", 0) ?: 0)
     }
 
@@ -49,6 +51,7 @@ class MainActivity : Activity() {
         super.onResume()
         // После возвращения из чата обновляем последнюю реплику в списке диалогов.
         showChats()
+        showProfileAvatar()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -66,7 +69,10 @@ class MainActivity : Activity() {
             .hideSoftInputFromWindow(pages.windowToken, 0)
         if (index == 1) showPeople()
         if (index == 2) showChats()
-        if (index == 3) updateProfileCount()
+        if (index == 3) {
+            updateProfileCount()
+            showProfileAvatar()
+        }
     }
 
     private fun showFeed() {
@@ -105,7 +111,7 @@ class MainActivity : Activity() {
             val isFriend = person.id in friends
             val card = card()
             val header = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
-            header.addView(avatar(DemoData.initials(person.name)))
+            header.addView(AvatarViews.person(this, person))
             val info = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
             info.addView(label(person.name, 17f, true))
             info.addView(label(person.city, 14f))
@@ -151,7 +157,8 @@ class MainActivity : Activity() {
             val row = card()
             row.orientation = LinearLayout.HORIZONTAL
             row.gravity = Gravity.CENTER_VERTICAL
-            row.addView(avatar(if (id == DemoData.SAVED_CHAT) "Я" else DemoData.initials(name)))
+            row.addView(if (id == DemoData.SAVED_CHAT) avatar("Я")
+                else AvatarViews.person(this, DemoData.person(id)!!))
             val info = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
             info.addView(label(name, 17f, true))
             info.addView(label(preview, 14f).apply {
@@ -191,6 +198,56 @@ class MainActivity : Activity() {
             findViewById<EditText>(R.id.profileAbout).text.toString().trim()))
         findViewById<TextView>(R.id.profileAvatar).text = DemoData.initials(name)
         Toast.makeText(this, R.string.profile_saved, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun chooseAvatar() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/*"
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        try {
+            startActivityForResult(intent, 101)
+        } catch (_: ActivityNotFoundException) {
+            Toast.makeText(this, R.string.picker_unavailable, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode != 101 || resultCode != RESULT_OK) return
+        val uri = data?.data ?: return
+        val button = findViewById<Button>(R.id.chooseAvatar)
+        button.isEnabled = false
+        button.setText(R.string.photo_loading)
+        val appContext = applicationContext
+        // Копирование и уменьшение фото не блокируют интерфейс.
+        Thread {
+            val saved = try {
+                AvatarStorage(appContext).save(uri)
+                true
+            } catch (_: Exception) {
+                false
+            }
+            runOnUiThread {
+                if (isFinishing || isDestroyed) return@runOnUiThread
+                button.isEnabled = true
+                button.setText(R.string.choose_photo)
+                if (saved) showProfileAvatar()
+                Toast.makeText(this, if (saved) R.string.photo_saved else R.string.photo_error,
+                    Toast.LENGTH_LONG).show()
+            }
+        }.start()
+    }
+
+    private fun showProfileAvatar() {
+        val bitmap = AvatarStorage(applicationContext).load()
+        findViewById<ImageView>(R.id.profileAvatarPhoto).apply {
+            setImageBitmap(bitmap)
+            visibility = if (bitmap != null) View.VISIBLE else View.GONE
+        }
+        findViewById<TextView>(R.id.profileAvatar).visibility =
+            if (bitmap == null) View.VISIBLE else View.GONE
     }
 
     private fun updateProfileCount() {
